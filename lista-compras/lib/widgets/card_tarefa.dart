@@ -36,7 +36,7 @@ class _TarefaCardState extends State<TarefaCard> {
       child: Row(
         children: [
           Container(
-            margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
             child: Checkbox(
               value: widget.finalizada,
               onChanged: (bool? value) {
@@ -63,13 +63,16 @@ class _TarefaCardState extends State<TarefaCard> {
               ],
             ),
           ),
-          IconButton(
-            onPressed: () {
-              widget.deletaTarefa(outraTarefa);
-            },
-            icon: const Icon(
-              Icons.delete,
-              color: Color.fromARGB(255, 195, 48, 38),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+            child: IconButton(
+              onPressed: () {
+                widget.deletaTarefa(outraTarefa);
+              },
+              icon: const Icon(
+                Icons.delete,
+                color: Color.fromARGB(255, 195, 48, 38),
+              ),
             ),
           ),
         ],

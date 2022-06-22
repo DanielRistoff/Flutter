@@ -1,78 +1,84 @@
-import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import './tarefas.dart';
+import 'package:mysql1/mysql1.dart';
 
 class BDConnection {
-  Database? _bd;
-  Future<Database> get database async {
-    final dbpath = await getDatabasesPath();
-    const dbname = 'tarefas.db';
-    final origem = join(dbpath, dbname);
+  Future<MySqlConnection> database() async {
+    final bd = await MySqlConnection.connect(ConnectionSettings(
+        host: '10.0.2.2',
+        port: 3306,
+        user: 'root',
+        db: 'listacompras',
+        password: '123'));
 
-    _bd = await openDatabase(origem, version: 1, onCreate: _criarBD);
+    _criarBD(bd);
 
-    return _bd!;
+    return bd;
   }
 
-  Future<void> _criarBD(Database bd, int version) async {
-    await bd.execute('''
-      CREATE TABLE tarefa(
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        titulo TEXT,
-        dataCriacao TEXT,
-        finalizada INTEGER
+  void _closeConnection(MySqlConnection connection) {
+    connection.close();
+  }
+
+  Future<void> _criarBD(MySqlConnection bd) async {
+    await bd.query('''
+       CREATE TABLE IF NOT EXISTS tarefa(
+        id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        titulo varchar(40),
+        dataCriacao varchar(40),
+        finalizada BOOLEAN
       )
     ''');
   }
 
   Future<void> criaTarefa(Tarefa tarefa) async {
-    final bd = await database;
-    await bd.insert(
-      'tarefa',
-      tarefa.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    final bd = await database();
+    if (tarefa.id != null) {
+      await bd.query('UPDATE tarefa SET finalizada = ? WHERE id = ?',
+          [tarefa.finalizada, tarefa.id]);
+    } else {
+      await bd.query(
+          'INSERT INTO tarefa (titulo, dataCriacao, finalizada) VALUES (?, ?, ?)',
+          [tarefa.titulo, tarefa.dataCriacao.toString(), tarefa.finalizada]);
+    }
+    _closeConnection(bd);
   }
 
   Future<void> deletaTarefa(Tarefa tarefa) async {
-    final bd = await database;
-    await bd.delete(
-      'tarefa',
-      where: 'id == ?',
-      whereArgs: [tarefa.id],
-    );
+    final bd = await database();
+    await bd.query('DELETE FROM tarefa WHERE id = ?', [tarefa.id]);
+    _closeConnection(bd);
   }
 
   Future<List<Tarefa>> listaTarefa() async {
-    final bd = await database;
-    List<Map<String, dynamic>> items = await bd.query(
-      'tarefa',
-      orderBy: 'id DESC',
-    );
+    final bd = await database();
+    var items = await bd.query(
+        'SELECT id, titulo, dataCriacao, finalizada  FROM tarefa ORDER BY titulo ASC');
 
-    return List.generate(
-      items.length,
-      (i) => Tarefa(
-        id: items[i]['id'],
-        titulo: items[i]['titulo'],
-        dataCriacao: DateTime.parse(items[i]['dataCriacao']),
-        finalizada: items[i]['finalizada'] == 1 ? true : false,
-      ),
-    );
+    List<Tarefa> listTarefas = [];
+
+    for (var tarefa in items) {
+      listTarefas.add(Tarefa(
+          id: tarefa[0],
+          titulo: tarefa[1],
+          dataCriacao: DateTime.parse(tarefa[2]),
+          finalizada: tarefa[3] == 0 ? false : true));
+    }
+    _closeConnection(bd);
+    return Future<List<Tarefa>>.value(listTarefas);
   }
 
   Future<bool> verificarExisteTarefaPorNome(String nomeTarefa) async {
     bool existeTarefa = false;
-    final bd = await database;
-    List<Map<String, dynamic>> items = await bd.query(
-      'tarefa',
-      where: " titulo = ?",
-      whereArgs: [nomeTarefa],
-    );
+    final bd = await database();
+
+    var items = await bd
+        .query('SELECT titulo  FROM tarefa WHERE titulo = ?', [nomeTarefa]);
 
     if (items.isNotEmpty) {
       existeTarefa = true;
     }
+    _closeConnection(bd);
     return existeTarefa;
   }
 }
