@@ -151,7 +151,7 @@ class _RecallScreenState extends State<RecallScreen>
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  'Histórico',
+                                  'Recall',
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                     fontFamily: CarInHandAppTheme.fontName,

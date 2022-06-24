@@ -1,18 +1,17 @@
 import 'package:carronamao/car_in_hand_app/ui_view/historic_view.dart';
 import 'package:carronamao/car_in_hand_app/car_in_hand_app_theme.dart';
+import 'package:carronamao/car_in_hand_app/ui_view/page_under_construction.dart';
 import 'package:flutter/material.dart';
 
-class StickyNotesScreen extends StatefulWidget {
-  const StickyNotesScreen({Key? key, this.animationController})
-      : super(key: key);
+class MenuScreen extends StatefulWidget {
+  const MenuScreen({Key? key, this.animationController}) : super(key: key);
 
   final AnimationController? animationController;
   @override
-  _StickyNotesScreenState createState() => _StickyNotesScreenState();
+  _MenuScreenState createState() => _MenuScreenState();
 }
 
-class _StickyNotesScreenState extends State<StickyNotesScreen>
-    with TickerProviderStateMixin {
+class _MenuScreenState extends State<MenuScreen> with TickerProviderStateMixin {
   Animation<double>? topBarAnimation;
 
   List<Widget> listViews = <Widget>[];
@@ -54,7 +53,7 @@ class _StickyNotesScreenState extends State<StickyNotesScreen>
 
   void addAllListData() {
     listViews.add(
-      const HistoricView(),
+      const PageUnderConstructionView(),
     );
   }
 
@@ -152,7 +151,7 @@ class _StickyNotesScreenState extends State<StickyNotesScreen>
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  'Lembretes',
+                                  '',
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                     fontFamily: CarInHandAppTheme.fontName,

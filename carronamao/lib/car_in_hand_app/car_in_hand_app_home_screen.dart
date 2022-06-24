@@ -1,4 +1,5 @@
 import 'package:carronamao/car_in_hand_app/historical/historical_screen.dart';
+import 'package:carronamao/car_in_hand_app/menu/menu_screen.dart';
 import 'package:carronamao/car_in_hand_app/models/tabIcon_data.dart';
 import 'package:carronamao/car_in_hand_app/recall/recall_screen.dart';
 import 'package:carronamao/car_in_hand_app/sticky_notes/sticky_notes_screen.dart';
@@ -116,8 +117,8 @@ class _CarInHandAppHomeScreenState extends State<CarInHandAppHomeScreen>
                   return;
                 }
                 setState(() {
-                  tabBody = HistoricalScreen(
-                      animationController: animationController);
+                  tabBody =
+                      MenuScreen(animationController: animationController);
                 });
               });
             }
