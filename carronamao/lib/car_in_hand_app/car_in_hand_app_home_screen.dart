@@ -1,6 +1,7 @@
 import 'package:carronamao/car_in_hand_app/historical/historical_screen.dart';
 import 'package:carronamao/car_in_hand_app/models/tabIcon_data.dart';
-import 'package:carronamao/car_in_hand_app/training/training_screen.dart';
+import 'package:carronamao/car_in_hand_app/recall/recall_screen.dart';
+import 'package:carronamao/car_in_hand_app/sticky_notes/sticky_notes_screen.dart';
 import 'package:flutter/material.dart';
 import 'bottom_navigation_view/bottom_bar_view.dart';
 import 'car_in_hand_app_theme.dart';
@@ -25,7 +26,7 @@ class _CarInHandAppHomeScreenState extends State<CarInHandAppHomeScreen>
     tabIconsList.forEach((TabIconData tab) {
       tab.isSelected = false;
     });
-    tabIconsList[0].isSelected = true;
+    tabIconsList[2].isSelected = true;
 
     animationController = AnimationController(
         duration: const Duration(milliseconds: 600), vsync: this);
@@ -79,7 +80,7 @@ class _CarInHandAppHomeScreenState extends State<CarInHandAppHomeScreen>
           tabIconsList: tabIconsList,
           addClick: () {},
           changeIndex: (int index) {
-            if (index == 0 || index == 2) {
+            if (index == 0) {
               animationController?.reverse().then<dynamic>((data) {
                 if (!mounted) {
                   return;
@@ -89,14 +90,34 @@ class _CarInHandAppHomeScreenState extends State<CarInHandAppHomeScreen>
                       animationController: animationController);
                 });
               });
-            } else if (index == 1 || index == 3) {
+            } else if (index == 1) {
               animationController?.reverse().then<dynamic>((data) {
                 if (!mounted) {
                   return;
                 }
                 setState(() {
                   tabBody =
-                      TrainingScreen(animationController: animationController);
+                      RecallScreen(animationController: animationController);
+                });
+              });
+            } else if (index == 2) {
+              animationController?.reverse().then<dynamic>((data) {
+                if (!mounted) {
+                  return;
+                }
+                setState(() {
+                  tabBody = StickyNotesScreen(
+                      animationController: animationController);
+                });
+              });
+            } else {
+              animationController?.reverse().then<dynamic>((data) {
+                if (!mounted) {
+                  return;
+                }
+                setState(() {
+                  tabBody = HistoricalScreen(
+                      animationController: animationController);
                 });
               });
             }
