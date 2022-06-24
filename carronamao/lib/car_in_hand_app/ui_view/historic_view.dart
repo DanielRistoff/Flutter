@@ -67,7 +67,7 @@ class HistoricView extends StatelessWidget {
                               right: 16,
                             ),
                             child: Text(
-                              "Seviso realizado",
+                              "10/10/2021 - Realizado - Trocar de oleo",
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontFamily: CarInHandAppTheme.fontName,

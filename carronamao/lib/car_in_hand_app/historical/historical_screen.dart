@@ -1,18 +1,17 @@
 import 'package:carronamao/car_in_hand_app/ui_view/historic_view.dart';
-import 'package:carronamao/car_in_hand_app/ui_view/running_view.dart';
-import 'package:carronamao/car_in_hand_app/ui_view/title_view.dart';
 import 'package:carronamao/car_in_hand_app/car_in_hand_app_theme.dart';
 import 'package:flutter/material.dart';
 
-class MyDiaryScreen extends StatefulWidget {
-  const MyDiaryScreen({Key? key, this.animationController}) : super(key: key);
+class HistoricalScreen extends StatefulWidget {
+  const HistoricalScreen({Key? key, this.animationController})
+      : super(key: key);
 
   final AnimationController? animationController;
   @override
-  _MyDiaryScreenState createState() => _MyDiaryScreenState();
+  _HistoricalScreenState createState() => _HistoricalScreenState();
 }
 
-class _MyDiaryScreenState extends State<MyDiaryScreen>
+class _HistoricalScreenState extends State<HistoricalScreen>
     with TickerProviderStateMixin {
   Animation<double>? topBarAnimation;
 
@@ -54,8 +53,6 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
   }
 
   void addAllListData() {
-    const int count = 9;
-
     listViews.add(
       const HistoricView(),
     );

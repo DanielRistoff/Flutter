@@ -1,9 +1,9 @@
+import 'package:carronamao/car_in_hand_app/historical/historical_screen.dart';
 import 'package:carronamao/car_in_hand_app/models/tabIcon_data.dart';
 import 'package:carronamao/car_in_hand_app/training/training_screen.dart';
 import 'package:flutter/material.dart';
 import 'bottom_navigation_view/bottom_bar_view.dart';
 import 'car_in_hand_app_theme.dart';
-import 'my_diary/my_diary_screen.dart';
 
 class CarInHandAppHomeScreen extends StatefulWidget {
   @override
@@ -29,7 +29,7 @@ class _CarInHandAppHomeScreenState extends State<CarInHandAppHomeScreen>
 
     animationController = AnimationController(
         duration: const Duration(milliseconds: 600), vsync: this);
-    tabBody = MyDiaryScreen(animationController: animationController);
+    tabBody = HistoricalScreen(animationController: animationController);
     super.initState();
   }
 
@@ -85,8 +85,8 @@ class _CarInHandAppHomeScreenState extends State<CarInHandAppHomeScreen>
                   return;
                 }
                 setState(() {
-                  tabBody =
-                      MyDiaryScreen(animationController: animationController);
+                  tabBody = HistoricalScreen(
+                      animationController: animationController);
                 });
               });
             } else if (index == 1 || index == 3) {
