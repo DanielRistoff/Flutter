@@ -83,8 +83,9 @@ class _BottomBarViewState extends State<BottomBarView>
                             SizedBox(
                               width: Tween<double>(begin: 0.0, end: 1.0)
                                       .animate(CurvedAnimation(
-                                          parent: animationController!,
-                                          curve: Curves.fastOutSlowIn))
+                                        parent: animationController!,
+                                        curve: Curves.fastOutSlowIn,
+                                      ))
                                       .value *
                                   64.0,
                             ),
@@ -140,7 +141,6 @@ class _BottomBarViewState extends State<BottomBarView>
                             parent: animationController!,
                             curve: Curves.fastOutSlowIn)),
                     child: Container(
-                      // alignment: Alignment.center,s
                       decoration: BoxDecoration(
                         color: CarInHandAppTheme.nearlyDarkBlue,
                         gradient: LinearGradient(
@@ -166,7 +166,7 @@ class _BottomBarViewState extends State<BottomBarView>
                           highlightColor: Colors.transparent,
                           focusColor: Colors.transparent,
                           onTap: widget.addClick,
-                          child: Icon(
+                          child: const Icon(
                             Icons.add,
                             color: CarInHandAppTheme.white,
                             size: 32,
@@ -251,8 +251,8 @@ class _TabIconsState extends State<TabIcons> with TickerProviderStateMixin {
                   scale: Tween<double>(begin: 0.88, end: 1.0).animate(
                       CurvedAnimation(
                           parent: widget.tabIconData!.animationController!,
-                          curve:
-                              Interval(0.1, 1.0, curve: Curves.fastOutSlowIn))),
+                          curve: const Interval(0.1, 1.0,
+                              curve: Curves.fastOutSlowIn))),
                   child: Image.asset(widget.tabIconData!.isSelected
                       ? widget.tabIconData!.selectedImagePath
                       : widget.tabIconData!.imagePath),
@@ -266,12 +266,12 @@ class _TabIconsState extends State<TabIcons> with TickerProviderStateMixin {
                     scale: Tween<double>(begin: 0.0, end: 1.0).animate(
                         CurvedAnimation(
                             parent: widget.tabIconData!.animationController!,
-                            curve: Interval(0.2, 1.0,
+                            curve: const Interval(0.2, 1.0,
                                 curve: Curves.fastOutSlowIn))),
                     child: Container(
                       width: 8,
                       height: 8,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: CarInHandAppTheme.nearlyDarkBlue,
                         shape: BoxShape.circle,
                       ),
@@ -287,12 +287,12 @@ class _TabIconsState extends State<TabIcons> with TickerProviderStateMixin {
                     scale: Tween<double>(begin: 0.0, end: 1.0).animate(
                         CurvedAnimation(
                             parent: widget.tabIconData!.animationController!,
-                            curve: Interval(0.5, 0.8,
+                            curve: const Interval(0.5, 0.8,
                                 curve: Curves.fastOutSlowIn))),
                     child: Container(
                       width: 4,
                       height: 4,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: CarInHandAppTheme.nearlyDarkBlue,
                         shape: BoxShape.circle,
                       ),
@@ -308,12 +308,12 @@ class _TabIconsState extends State<TabIcons> with TickerProviderStateMixin {
                     scale: Tween<double>(begin: 0.0, end: 1.0).animate(
                         CurvedAnimation(
                             parent: widget.tabIconData!.animationController!,
-                            curve: Interval(0.5, 0.6,
+                            curve: const Interval(0.5, 0.6,
                                 curve: Curves.fastOutSlowIn))),
                     child: Container(
                       width: 6,
                       height: 6,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: CarInHandAppTheme.nearlyDarkBlue,
                         shape: BoxShape.circle,
                       ),

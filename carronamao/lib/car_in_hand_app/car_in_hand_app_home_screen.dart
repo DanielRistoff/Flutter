@@ -3,6 +3,7 @@ import 'package:carronamao/car_in_hand_app/menu/menu_screen.dart';
 import 'package:carronamao/car_in_hand_app/models/tabIcon_data.dart';
 import 'package:carronamao/car_in_hand_app/recall/recall_screen.dart';
 import 'package:carronamao/car_in_hand_app/sticky_notes/sticky_notes_screen.dart';
+import 'package:carronamao/car_in_hand_app/ui_view/add_sticky_notes_view.dart';
 import 'package:flutter/material.dart';
 import 'bottom_navigation_view/bottom_bar_view.dart';
 import 'car_in_hand_app_theme.dart';
@@ -79,7 +80,14 @@ class _CarInHandAppHomeScreenState extends State<CarInHandAppHomeScreen>
         ),
         BottomBarView(
           tabIconsList: tabIconsList,
-          addClick: () {},
+          addClick: () {
+            // click do botao
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        const AddStickyNotesView()));
+          },
           changeIndex: (int index) {
             if (index == 0) {
               animationController?.reverse().then<dynamic>((data) {
