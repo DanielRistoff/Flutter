@@ -1,23 +1,23 @@
-import 'package:carronamao/fitness_app/models/tabIcon_data.dart';
-import 'package:carronamao/fitness_app/training/training_screen.dart';
+import 'package:carronamao/car_in_hand_app/models/tabIcon_data.dart';
+import 'package:carronamao/car_in_hand_app/training/training_screen.dart';
 import 'package:flutter/material.dart';
 import 'bottom_navigation_view/bottom_bar_view.dart';
-import 'fitness_app_theme.dart';
+import 'car_in_hand_app_theme.dart';
 import 'my_diary/my_diary_screen.dart';
 
-class FitnessAppHomeScreen extends StatefulWidget {
+class CarInHandAppHomeScreen extends StatefulWidget {
   @override
-  _FitnessAppHomeScreenState createState() => _FitnessAppHomeScreenState();
+  _CarInHandAppHomeScreenState createState() => _CarInHandAppHomeScreenState();
 }
 
-class _FitnessAppHomeScreenState extends State<FitnessAppHomeScreen>
+class _CarInHandAppHomeScreenState extends State<CarInHandAppHomeScreen>
     with TickerProviderStateMixin {
   AnimationController? animationController;
 
   List<TabIconData> tabIconsList = TabIconData.tabIconsList;
 
   Widget tabBody = Container(
-    color: FitnessAppTheme.background,
+    color: CarInHandAppTheme.background,
   );
 
   @override
@@ -42,7 +42,7 @@ class _FitnessAppHomeScreenState extends State<FitnessAppHomeScreen>
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: FitnessAppTheme.background,
+      color: CarInHandAppTheme.background,
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: FutureBuilder<bool>(
