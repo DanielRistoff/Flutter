@@ -52,9 +52,9 @@ class _RecallScreenState extends State<RecallScreen>
   }
 
   void addAllListData() {
-    listViews.add(
-      const HistoricView(),
-    );
+    // listViews.add(
+    //   const HistoricView(title: "Teste", description: "Teste"),
+    // );
   }
 
   Future<bool> getData() async {

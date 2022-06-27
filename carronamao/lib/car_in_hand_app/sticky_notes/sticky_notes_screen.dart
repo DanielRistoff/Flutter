@@ -54,7 +54,10 @@ class _StickyNotesScreenState extends State<StickyNotesScreen>
 
   void addAllListData() {
     listViews.add(
-      const HistoricView(),
+      const HistoricView(
+        title: "Teste",
+        description: "Teste",
+      ),
     );
   }
 

@@ -1,8 +1,12 @@
+import 'package:carronamao/car_in_hand_app/models/stick_note.dart';
 import 'package:flutter/material.dart';
 import '../car_in_hand_app_theme.dart';
 
 class HistoricView extends StatelessWidget {
-  const HistoricView({Key? key}) : super(key: key);
+  final String title;
+  final String description;
+  const HistoricView({required this.title, required this.description, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,17 +42,17 @@ class HistoricView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Row(
-                            children: const <Widget>[
+                            children: <Widget>[
                               Padding(
-                                padding: EdgeInsets.only(
+                                padding: const EdgeInsets.only(
                                   left: 30,
                                   right: 16,
                                   top: 16,
                                 ),
                                 child: Text(
-                                  "Titulo",
+                                  title,
                                   textAlign: TextAlign.left,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontFamily: CarInHandAppTheme.fontName,
                                     fontWeight: FontWeight.w500,
                                     fontSize: 14,
@@ -67,7 +71,7 @@ class HistoricView extends StatelessWidget {
                               right: 16,
                             ),
                             child: Text(
-                              "10/10/2021 - Realizado - Trocar de oleo",
+                              description,
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontFamily: CarInHandAppTheme.fontName,

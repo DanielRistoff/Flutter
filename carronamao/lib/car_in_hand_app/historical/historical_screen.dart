@@ -1,3 +1,6 @@
+import 'package:carronamao/car_in_hand_app/mocks/stick_nodes_mocks.dart';
+import 'package:carronamao/car_in_hand_app/models/kind_of_service.dart';
+import 'package:carronamao/car_in_hand_app/models/stick_note.dart';
 import 'package:carronamao/car_in_hand_app/ui_view/historic_view.dart';
 import 'package:carronamao/car_in_hand_app/car_in_hand_app_theme.dart';
 import 'package:flutter/material.dart';
@@ -53,9 +56,14 @@ class _HistoricalScreenState extends State<HistoricalScreen>
   }
 
   void addAllListData() {
-    listViews.add(
-      const HistoricView(),
-    );
+    for (var element in StickNodesMocks.getStickNodesListMock()) {
+      listViews.add(
+        HistoricView(
+            title: element.kindOfService.description,
+            description:
+                "${element.getDateHourFormatted()} - ${element.getStatusStickNote()} - ${element.note}"),
+      );
+    }
   }
 
   Future<bool> getData() async {
