@@ -3,33 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../car_in_hand_app_theme.dart';
 
-List<String> getDates() {
-  final DateFormat formatter = DateFormat('dd-MM-yyyy');
-  final DateTime now = DateTime.now();
-  List<String> datesF = <String>[formatter.format(now)];
-
-  for (var i = 1; i < 31; i++) {
-    datesF.add(formatter.format(DateTime(now.year, now.month, now.day + i)));
-  }
-  return datesF;
-}
-
-List<String> getHours() {
-  final DateFormat formatter = DateFormat('HH:mm');
-  final DateTime now = DateTime.now();
-  final DateTime initialDate = DateTime(now.year, now.month, now.day, 0, 0);
-  List<String> hoursF = <String>[formatter.format(initialDate)];
-
-  for (var i = 1; i < 48; i++) {
-    hoursF.add(formatter.format(DateTime(initialDate.year, initialDate.month,
-        initialDate.day, initialDate.hour, initialDate.minute + 30 * i)));
-  }
-  return hoursF;
-}
-
-List<String> _dates = getDates();
-List<String> _hours = getHours();
-
 const List<String> _services = <String>[
   'Troca de óleo',
   'Troca de filtro de óleo',
@@ -42,15 +15,23 @@ const List<String> _services = <String>[
   'Outros',
 ];
 
-int selectDate = 0;
-int selectHours = 0;
 int selectService = 0;
 
-class AddStickyNotesView extends StatelessWidget {
+class AddStickyNotesView extends StatefulWidget {
   const AddStickyNotesView({Key? key}) : super(key: key);
 
   @override
+  State<AddStickyNotesView> createState() => _AddStickyNotesViewState();
+}
+
+class _AddStickyNotesViewState extends State<AddStickyNotesView> {
+  @override
   Widget build(BuildContext context) {
+    late TextEditingController _dateController =
+        TextEditingController(text: '');
+    late TextEditingController _hoursController =
+        TextEditingController(text: '');
+
     return Column(
       children: <Widget>[
         Padding(
@@ -83,11 +64,10 @@ class AddStickyNotesView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Row(
-                            children: const <Widget>[
-                              Padding(
+                            children: <Widget>[
+                              const Padding(
                                 padding: EdgeInsets.only(
                                   left: 30,
-                                  right: 16,
                                   top: 16,
                                 ),
                                 child: Text(
@@ -102,42 +82,57 @@ class AddStickyNotesView extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                            ],
-                          ),
-                          Row(
-                            children: <Widget>[
                               Padding(
                                   padding: const EdgeInsets.only(
-                                    left: 30,
-                                    right: 16,
-                                    top: 2,
+                                    left: 10,
+                                    top: 16,
                                   ),
                                   child: SizedBox(
-                                    width: 300,
-                                    height: 70,
-                                    child: CupertinoPicker(
-                                      itemExtent: 30,
-                                      onSelectedItemChanged: (int indexDate) {
-                                        selectDate = indexDate;
-                                      },
-                                      children: List<Widget>.generate(
-                                          _dates.length, (int index) {
-                                        return Center(
-                                          child: Text(
-                                            _dates[index],
+                                      width: 100,
+                                      height: 30,
+                                      child: CupertinoTextField(
+                                        controller: _dateController,
+                                        enabled: false,
+                                      ))),
+                              Padding(
+                                  padding: const EdgeInsets.only(
+                                    top: 16,
+                                  ),
+                                  child: IconButton(
+                                    icon: const Icon(Icons.date_range),
+                                    onPressed: () async {
+                                      final data = await showDatePicker(
+                                        context: context,
+                                        initialDate: DateTime.now(),
+                                        firstDate:
+                                            DateTime(DateTime.now().year),
+                                        lastDate:
+                                            DateTime(DateTime.now().year + 1),
+                                        locale: const Locale("pt", "BR"),
+                                      );
+                                      if (data != null) {
+                                        final dataFormatted =
+                                            DateFormat.yMd("pt_BR")
+                                                .format(data);
+
+                                        _dateController.value =
+                                            TextEditingValue(
+                                          text: dataFormatted,
+                                          selection: TextSelection.fromPosition(
+                                            TextPosition(
+                                                offset: dataFormatted.length),
                                           ),
                                         );
-                                      }),
-                                    ),
+                                      }
+                                    },
                                   )),
                             ],
                           ),
                           Row(
-                            children: const <Widget>[
-                              Padding(
+                            children: <Widget>[
+                              const Padding(
                                 padding: EdgeInsets.only(
                                   left: 30,
-                                  right: 16,
                                   top: 16,
                                 ),
                                 child: Text(
@@ -152,33 +147,47 @@ class AddStickyNotesView extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                            ],
-                          ),
-                          Row(
-                            children: <Widget>[
                               Padding(
                                   padding: const EdgeInsets.only(
-                                    left: 30,
-                                    right: 16,
-                                    top: 10,
+                                    left: 10,
+                                    top: 16,
                                   ),
                                   child: SizedBox(
-                                    width: 300,
-                                    height: 70,
-                                    child: CupertinoPicker(
-                                      itemExtent: 30,
-                                      onSelectedItemChanged: (int indexHour) {
-                                        selectHours = indexHour;
-                                      },
-                                      children: List<Widget>.generate(
-                                          _hours.length, (int index) {
-                                        return Center(
-                                          child: Text(
-                                            _hours[index],
+                                      width: 55,
+                                      height: 30,
+                                      child: CupertinoTextField(
+                                        controller: _hoursController,
+                                        enabled: false,
+                                      ))),
+                              Padding(
+                                  padding: const EdgeInsets.only(
+                                    top: 16,
+                                  ),
+                                  child: IconButton(
+                                    icon: const Icon(Icons.access_time),
+                                    onPressed: () async {
+                                      final time = await showTimePicker(
+                                        context: context,
+                                        initialTime: TimeOfDay.now(),
+                                      );
+
+                                      if (time != null) {
+                                        final now = new DateTime.now();
+                                        final dt = DateTime(now.year, now.month,
+                                            now.day, time.hour, time.minute);
+                                        final format = DateFormat.Hm();
+                                        var hourFormatted = format.format(dt);
+
+                                        _hoursController.value =
+                                            TextEditingValue(
+                                          text: hourFormatted,
+                                          selection: TextSelection.fromPosition(
+                                            TextPosition(
+                                                offset: hourFormatted.length),
                                           ),
                                         );
-                                      }),
-                                    ),
+                                      }
+                                    },
                                   )),
                             ],
                           ),
@@ -244,6 +253,8 @@ class AddStickyNotesView extends StatelessWidget {
                                   child: SizedBox(
                                     width: 300,
                                     child: CupertinoButton(
+                                      disabledColor:
+                                          CupertinoColors.inactiveGray,
                                       onPressed: () {},
                                       color: const Color.fromARGB(
                                           255, 91, 88, 251),
