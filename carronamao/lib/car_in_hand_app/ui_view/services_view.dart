@@ -1,12 +1,11 @@
 import 'package:carronamao/car_in_hand_app/models/stick_note.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../car_in_hand_app_theme.dart';
 
-class HistoricView extends StatelessWidget {
-  final String title;
-  final String description;
-  const HistoricView({required this.title, required this.description, Key? key})
-      : super(key: key);
+class ServicesView extends StatelessWidget {
+  final StickNote stickNode;
+  const ServicesView({required this.stickNode, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +49,7 @@ class HistoricView extends StatelessWidget {
                                   top: 16,
                                 ),
                                 child: Text(
-                                  title,
+                                  stickNode.kindOfService.description,
                                   textAlign: TextAlign.left,
                                   style: const TextStyle(
                                     fontFamily: CarInHandAppTheme.fontName,
@@ -71,7 +70,8 @@ class HistoricView extends StatelessWidget {
                               right: 16,
                             ),
                             child: Text(
-                              description,
+                              stickNode
+                                  .getDescriptionStickNote(), // tem que mudar
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontFamily: CarInHandAppTheme.fontName,
@@ -84,6 +84,31 @@ class HistoricView extends StatelessWidget {
                           ),
                         ],
                       ),
+                      Row(children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: 6,
+                            left: 250,
+                          ),
+                          child: IconButton(
+                            color: const Color.fromARGB(255, 22, 156, 51),
+                            icon: const Icon(Icons.edit),
+                            tooltip: 'Alterar',
+                            onPressed: () {},
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: 6,
+                          ),
+                          child: IconButton(
+                            color: const Color.fromARGB(255, 187, 14, 57),
+                            icon: const Icon(Icons.delete),
+                            tooltip: 'Deletar',
+                            onPressed: () {},
+                          ),
+                        )
+                      ])
                     ],
                   ),
                 ),

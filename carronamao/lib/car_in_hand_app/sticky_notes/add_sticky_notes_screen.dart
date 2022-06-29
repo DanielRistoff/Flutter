@@ -1,13 +1,16 @@
+import 'package:carronamao/car_in_hand_app/models/stick_note.dart';
 import 'package:carronamao/car_in_hand_app/ui_view/add_sticky_notes_view.dart';
 import 'package:carronamao/car_in_hand_app/ui_view/historic_view.dart';
 import 'package:carronamao/car_in_hand_app/car_in_hand_app_theme.dart';
 import 'package:flutter/material.dart';
 
 class AddStickyNotesScreen extends StatefulWidget {
-  const AddStickyNotesScreen({Key? key, this.animationController})
+  const AddStickyNotesScreen(
+      {Key? key, this.animationController, required this.services})
       : super(key: key);
 
   final AnimationController? animationController;
+  final List<StickNote> services;
   @override
   _AddStickyNotesScreenState createState() => _AddStickyNotesScreenState();
 }
@@ -55,7 +58,7 @@ class _AddStickyNotesScreenState extends State<AddStickyNotesScreen>
 
   void addAllListData() {
     listViews.add(
-      const AddStickyNotesView(),
+      AddStickyNotesView(services: widget.services),
     );
   }
 

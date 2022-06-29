@@ -61,7 +61,7 @@ class _HistoricalScreenState extends State<HistoricalScreen>
         HistoricView(
             title: element.kindOfService.description,
             description:
-                "${element.getDateHourFormatted()} - ${element.getStatusStickNote()} - ${element.note}"),
+                "${element.getDateHourFormatted()} - ${element.status} - ${element.note}"),
       );
     }
   }

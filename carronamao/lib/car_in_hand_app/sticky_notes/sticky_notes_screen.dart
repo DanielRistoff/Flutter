@@ -1,12 +1,16 @@
+import 'package:carronamao/car_in_hand_app/models/stick_note.dart';
 import 'package:carronamao/car_in_hand_app/ui_view/historic_view.dart';
 import 'package:carronamao/car_in_hand_app/car_in_hand_app_theme.dart';
+import 'package:carronamao/car_in_hand_app/ui_view/services_view.dart';
 import 'package:flutter/material.dart';
 
 class StickyNotesScreen extends StatefulWidget {
-  const StickyNotesScreen({Key? key, this.animationController})
+  const StickyNotesScreen(
+      {Key? key, this.animationController, required this.services})
       : super(key: key);
 
   final AnimationController? animationController;
+  final List<StickNote> services;
   @override
   _StickyNotesScreenState createState() => _StickyNotesScreenState();
 }
@@ -53,12 +57,9 @@ class _StickyNotesScreenState extends State<StickyNotesScreen>
   }
 
   void addAllListData() {
-    listViews.add(
-      const HistoricView(
-        title: "Teste",
-        description: "Teste",
-      ),
-    );
+    for (var service in widget.services) {
+      listViews.add(ServicesView(stickNode: service));
+    }
   }
 
   Future<bool> getData() async {

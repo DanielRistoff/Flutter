@@ -1,5 +1,7 @@
 import 'package:carronamao/car_in_hand_app/historical/historical_screen.dart';
 import 'package:carronamao/car_in_hand_app/menu/menu_screen.dart';
+import 'package:carronamao/car_in_hand_app/mocks/stick_nodes_mocks.dart';
+import 'package:carronamao/car_in_hand_app/models/stick_note.dart';
 import 'package:carronamao/car_in_hand_app/models/tabIcon_data.dart';
 import 'package:carronamao/car_in_hand_app/recall/recall_screen.dart';
 import 'package:carronamao/car_in_hand_app/sticky_notes/sticky_notes_screen.dart';
@@ -16,6 +18,7 @@ class CarInHandAppHomeScreen extends StatefulWidget {
 class _CarInHandAppHomeScreenState extends State<CarInHandAppHomeScreen>
     with TickerProviderStateMixin {
   AnimationController? animationController;
+  List<StickNote> _services = [];
 
   List<TabIconData> tabIconsList = TabIconData.tabIconsList;
 
@@ -33,6 +36,10 @@ class _CarInHandAppHomeScreenState extends State<CarInHandAppHomeScreen>
     animationController = AnimationController(
         duration: const Duration(milliseconds: 600), vsync: this);
     tabBody = HistoricalScreen(animationController: animationController);
+
+    //buscar a lista de servicos
+    _services = StickNodesMocks.getStickNodesListMock();
+
     super.initState();
   }
 
@@ -84,7 +91,9 @@ class _CarInHandAppHomeScreenState extends State<CarInHandAppHomeScreen>
             // click do botao
             setState(() {
               tabBody = AddStickyNotesScreen(
-                  animationController: animationController);
+                animationController: animationController,
+                services: _services,
+              );
             });
           },
           changeIndex: (int index) {
@@ -115,7 +124,9 @@ class _CarInHandAppHomeScreenState extends State<CarInHandAppHomeScreen>
                 }
                 setState(() {
                   tabBody = StickyNotesScreen(
-                      animationController: animationController);
+                    animationController: animationController,
+                    services: _services,
+                  );
                 });
               });
             } else {
