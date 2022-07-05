@@ -10,14 +10,18 @@ class StickNote {
   final KindOfService kindOfService;
   final String note;
   final StickNodeStatusEnum status;
+  final DateTime created;
+  final DateTime? update;
 
   StickNote({
-    required this.id,
+    this.id,
     required this.date,
     required this.hour,
     required this.kindOfService,
     required this.note,
     required this.status,
+    required this.created,
+    this.update,
   });
 
   String getDateHourFormatted() {
@@ -25,6 +29,6 @@ class StickNote {
   }
 
   String getDescriptionStickNote() {
-    return "${getDateHourFormatted()} - ${getDescriptionStickNodeStatus(status)} - ${note}";
+    return "${getDateHourFormatted()} - ${getDescriptionStickNodeStatus(status)} ${note != '' ? (" - $note") : ""} ";
   }
 }

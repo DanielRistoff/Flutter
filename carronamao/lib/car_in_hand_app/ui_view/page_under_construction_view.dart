@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../car_in_hand_app_theme.dart';
 
 class PageUnderConstructionView extends StatelessWidget {
   const PageUnderConstructionView({Key? key}) : super(key: key);
@@ -13,7 +12,7 @@ class PageUnderConstructionView extends StatelessWidget {
           "assets/icons/404.svg",
           height: 395,
         ),
-        SizedBox(height: 30),
+        const SizedBox(height: 30),
       ],
     );
   }

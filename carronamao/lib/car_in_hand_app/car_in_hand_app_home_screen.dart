@@ -34,7 +34,7 @@ class _CarInHandAppHomeScreenState extends State<CarInHandAppHomeScreen>
     tabIconsList[2].isSelected = true;
 
     animationController = AnimationController(
-        duration: const Duration(milliseconds: 600), vsync: this);
+        duration: const Duration(milliseconds: 10), vsync: this);
     tabBody = HistoricalScreen(animationController: animationController);
 
     //buscar a lista de servicos

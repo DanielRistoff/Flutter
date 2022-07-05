@@ -3,7 +3,7 @@ class KindOfService {
   final String description;
 
   KindOfService({
-    required this.id,
+    this.id,
     required this.description,
   });
 }

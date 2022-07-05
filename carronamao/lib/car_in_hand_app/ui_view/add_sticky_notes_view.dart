@@ -23,17 +23,17 @@ class _AddStickyNotesViewState extends State<AddStickyNotesView> {
         TextEditingController(text: '');
     late TextEditingController _hoursController =
         TextEditingController(text: '');
+    late TextEditingController _noteController =
+        TextEditingController(text: '');
 
     late String _dateSelected = '';
     late String _hourSelected = '';
-    late String _noteSelected = '';
 
     List<String> _kindOfServices =
         KindOfServiceMocks().getKindOfServicesDescription();
 
     KindOfService _kindOfServiceSelected = KindOfServiceMocks()
         .getKindOfServicePerDescription(description: "Outros");
-    // ignore: unused_local_variable
 
     return Column(
       children: <Widget>[
@@ -276,9 +276,9 @@ class _AddStickyNotesViewState extends State<AddStickyNotesView> {
                             ],
                           ),
                           Row(
-                            children: const <Widget>[
+                            children: <Widget>[
                               Padding(
-                                  padding: EdgeInsets.only(
+                                  padding: const EdgeInsets.only(
                                     left: 30,
                                     right: 16,
                                   ),
@@ -286,6 +286,7 @@ class _AddStickyNotesViewState extends State<AddStickyNotesView> {
                                     width: 300,
                                     height: 70,
                                     child: CupertinoTextField(
+                                      controller: _noteController,
                                       keyboardType: TextInputType.multiline,
                                       textInputAction: TextInputAction.newline,
                                       minLines: 1,
@@ -316,9 +317,10 @@ class _AddStickyNotesViewState extends State<AddStickyNotesView> {
                                               hour: _hourSelected,
                                               kindOfService:
                                                   _kindOfServiceSelected,
-                                              note: _noteSelected,
-                                              status: StickNodeStatusEnum
-                                                  .PENDENTE));
+                                              note: _noteController.text,
+                                              status:
+                                                  StickNodeStatusEnum.PENDENTE,
+                                              created: DateTime.now()));
 
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(const SnackBar(
